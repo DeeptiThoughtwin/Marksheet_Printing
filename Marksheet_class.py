@@ -39,7 +39,6 @@ class Marksheet:
             dob = input("Enter Your Date of Birth (DD/MM/YYYY): ")
             try:
                 self.dob_object = datetime.strptime(dob, "%d/%m/%Y").date()
-                # FIX 1: Keep it as a Python date object (psycopg2 sends this perfectly to PostgreSQL)
                 self.date_of_birth = self.dob_object 
                 break  
             except ValueError:
@@ -207,11 +206,11 @@ class Marksheet:
                 cursor.execute(subject_query, subject_data)
 
             connection.commit()
-            print("\n[Database Success] Marksheet record saved successfully to PostgreSQL database!")
+            print("\n Record saved successfully to database.")
 
         
         except Exception as error:
-            print(f"\n[Database Error] Failed to save data: {error}")
+            print(f"\nFailed to save database. {error}")
             if connection:
                 connection.rollback()
         finally:
